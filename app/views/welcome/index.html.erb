@@ -1,0 +1,28 @@
+<h1>イベント一覧</h1>
+
+<!--検索フォーム-->
+ <%= form_with(model: @event_search_form, url: root_path, method: :get) do |f| %>
+  <div class="form-group">
+    <%= f.label :keyword, "キーワード" %>
+    <%= f.text_field :keyword, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :start_at, "以降に開催されるイベント" %>
+    <%= f.datetime_field :start_at, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "検索", class: "btn btn-primary" %>
+  </div>
+<% end %> 
+<!---->
+
+<ul class="list-group mb-3">
+  <% @events.each do |event| %>
+    <!-- イベントの名前と時間をグループ化し枠で囲み、その枠内のどこをクリックしても詳細ページに遷移できる -->
+    <%= link_to(event, class: "list-group-item list-group-item-action") do %> 
+      <h5 class="list-group-item-heading"><%= event.name %></h5>
+      <p class="mb-1"><%= "#{l(event.start_at, format: :long)} - #{l(event.end_at, format: :long)}" %></p>
+    <% end %>
+  <% end %>
+</ul>
+<%= paginate @events %>

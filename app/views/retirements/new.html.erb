@@ -1,0 +1,13 @@
+<h1 class="mt-3">退会の確認</h1>
+<!--ここにエラーメッセージ-->
+<p>退会した場合、ユーザに関するデータが全て削除されます。</p>
+<p>ただし、以下の場合は退会できません。</p>
+
+<ul>
+  <li>あなたが公開中の未終了イベントがある場合</li>
+  <li>未終了の参加イベントがある場合</li>
+</ul>
+<hr>
+<!-- link_toでPOSTするとajaxが効かないが、remote :trueにすることで、ajaxが効くようになる 
+cf 検証 ネットワーク retirements 200 xhr -->
+<%= link_to "退会する", retirements_path, method: :post, remote: true, class: "btn btn-danger", data:{ confirm: "本当に退会しますか？" } %>

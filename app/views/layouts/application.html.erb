@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AwesomeEvents</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <header class="navbar navbar-expand-sm navbar-light bg-light">
+      <div class="container">
+        <%=link_to "AwesomeEvents", root_path, class: "navbar-brand" %>
+        <ul class="nabvar-nav">
+          <li class="nav-item">
+            <%=link_to "イベントを作る", new_event_path, class: "nav-link" %>
+          <% if logged_in? %> 
+            <li class="navbar-item">
+              <%= link_to "退会", new_retirement_path, class: "nav-link" %>
+            <li class="nav-item">
+              <%=link_to "ログアウト", logout_path, class: "nav-link", method: :delete %>
+            </li>
+          <% else %> 
+            <li class="nav-item">
+              <%=link_to "Githubでログイン", "/auth/github", class: "nav-link", method: :post %>
+            </li>
+          <% end %> 
+        </ul>
+      </div>
+    </header> 
+    <div class="container"> 
+      <% if flash.notice %>
+        <div class="alert alert-success">
+          <%= flash.notice %>
+        </div>
+      <% elsif flash.alert %>
+        <div class="alert alert-danger">
+          <%= flash.alert %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
